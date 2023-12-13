@@ -108,11 +108,11 @@ fi
 printf "마스터노드 호스트 이름 입력 (m-k8s): "
 read MASTER_NODE_HOSTNAME
 echo $MASTER_NODE_HOSTNAME
-if [ ! -z $MASTER_NODE_HOSTNAME ];then
+if [ ! -z "${MASTER_NODE_HOSTNAME}" ];then
 	ETC_HOSTS+=" ${MASTER_NODE_HOSTNAME}"
 #	echo -e "export MY_KUBER_MNODE_HOSTNAME=$MASTER_NODE_HOSTNAME;#MY_KUBER_SET" >> $HOME/.bash_profile
 
-	echo -e "export MY_KUBER_MNODE_HOSTNAME=$MASTER_NODE_HOSTNAME;" >> ./my_variables
+	echo -e "export MY_KUBER_MNODE_HOSTNAME=${MASTER_NODE_HOSTNAME};" >> ./my_variables
 
 elif [ -z "${MASTER_NODE_HOSTNAME}" ];then
 	ETC_HOSTS+=" m-k8s"	
@@ -178,12 +178,12 @@ for (( i=2; i<=$WORKER_NODE_COUNT + 1; i++  )); do
 	
 	printf "워커노드 호스트 이름 입력 (w${NAME_COUNT}-k8s) : " # my_wnode_1 node1.example.com node1 다수 입력 가능
 	read WORKER_NODE_HOSTNAME
-	if [ ! -z $WORKER_NODE_HOSTNAME ];then
+	if [ ! -z "${WORKER_NODE_HOSTNAME}" ];then
 		ETC_HOSTS+=" ${WORKER_NODE_HOSTNAME}""\n"
 #		echo -e "export MY_KUBER_WNODE_$NAME_COUNT_HOSTNAME=${WORKER_NODE_HOSTNAME};#MY_KUBER_SET" >> $HOME/.bash_profile
 		echo -e "export MY_KUBER_WNODE_$NAME_COUNT_HOSTNAME=${WORKER_NODE_HOSTNAME};" >> ./my_variables
 
-	elif [ -z $WORKER_NODE_HOSTNAME ];then
+	elif [ -z "${WORKER_NODE_HOSTNAME}" ];then
 		ETC_HOSTS+=" w${NAME_COUNT}-k8s""\n"
 #		echo -e "export MY_KUBER_WNODE_$NAME_COUNT_HOSTNAME=w${NAME_COUNT}-k8s;#MY_KUBER_SET" >> $HOME/.bash_profile
 		echo -e "export MY_KUBER_WNODE_$NAME_COUNT_HOSTNAME=w${NAME_COUNT}-k8s;" >> ./my_variables
@@ -216,7 +216,7 @@ cat /etc/hosts
 cat << EOF >> /etc/resolv.conf
 nameserver 1.1.1.1 #cloudflare DNS
 nameserver 8.8.8.8 #Google DNS
-nameserver 126.168.63.1 #kt?
+nameserver 126.168.63.1 #kt
 EOF
 echo -e "/etc/resolv.conf 에 설정된 내용 : "
 cat /etc/resolv.conf
