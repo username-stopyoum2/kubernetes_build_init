@@ -107,7 +107,7 @@ fi
 
 printf "마스터노드 호스트 이름 입력 (m-k8s): "
 read MASTER_NODE_HOSTNAME
-
+echo $MASTER_NODE_HOSTNAME
 if [ ! -z $MASTER_NODE_HOSTNAME ];then
 	ETC_HOSTS+=" ${MASTER_NODE_HOSTNAME}"
 #	echo -e "export MY_KUBER_MNODE_HOSTNAME=$MASTER_NODE_HOSTNAME;#MY_KUBER_SET" >> $HOME/.bash_profile
